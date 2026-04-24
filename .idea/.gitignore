@@ -9,4 +9,4 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 # node_modules in main project
-../node_modules
+../node_modules/
