@@ -1,122 +1,94 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useState } from "react";
+import type { Meal } from "../../types/Meal";
+import { MealList } from "./components/MealList";
+import { CreateMealForm } from "./components/CreateMealForm";
+import { UpdateMealForm } from "./components/UpdateMealForm";
+import type {Student} from "../../types/Student.ts";
+import { StudentList } from "./components/StudentList.tsx";
+import {CreateStudentForm} from "./components/CreateStudentForm.tsx";
+import {UpdateStudentForm} from "./components/UpdateStudentForm.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [meals, setMeals] = useState<Meal[]>([]);
+    const [isCreating, setIsCreating] = useState(false);
+    const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
+    const [students, setStudents] = useState<Student[]>([]);
+    const [isCreatingStudent, setIsCreatingStudent] = useState(false);
+    const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+    const fetchMeals = async () => {
+        const res = await fetch("http://localhost:3000/meals");
+        const data = await res.json();
+        setMeals(data);
+    };
+    const fetchStudents = async () => {
+        const res = await fetch("http://localhost:3000/students");
+        const data = await res.json();
+        setStudents(data);
+    };
+    useEffect(() => {
+        fetchMeals();
+    }, []);
+
+    const refresh = () => {
+        fetchMeals();
+        setIsCreating(false);
+        setSelectedMeal(null);
+    };
+
+    const deleteMeal = async (id: number) => {
+        await fetch(`http://localhost:3000/meals/${id}`, {
+            method: "DELETE"
+        });
+        refresh();
+    };
+    const deleteStudent = async (id: number) => {
+        await fetch(`http://localhost:3000/students/${id}`, {
+            method: "DELETE"
+        });
+        fetchStudents();
+    };
+
+    const toggleIsCreating = () => {
+        setIsCreating(!isCreating);
+        setSelectedMeal(null);
+    };
+
+    const updateMeal = (meal: Meal) => {
+        setSelectedMeal(meal);
+        setIsCreating(false);
+    };
+
+    return (
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+            <h1>Student Canteen</h1>
 
-      <div className="ticks"></div>
+            {isCreating && <CreateMealForm refresh={refresh} />}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+            {selectedMeal && (
+                <UpdateMealForm meal={selectedMeal} refresh={refresh} />
+            )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+            <MealList
+                meals={meals}
+                toggleIsCreating={toggleIsCreating}
+                updateMeal={updateMeal}
+                deleteMeal={deleteMeal}
+            />
+            <StudentList
+                students={students}
+                toggleIsCreating={() => setIsCreatingStudent(!isCreatingStudent)}
+                updateStudent={setSelectedStudent}
+                deleteStudent={deleteStudent}
+            />
+
+            {isCreatingStudent && <CreateStudentForm refresh={fetchStudents} />}
+
+            {selectedStudent && (
+                <UpdateStudentForm student={selectedStudent} refresh={fetchStudents} />
+            )}
+        </div>
+    );
 }
 
-export default App
+export default App;
