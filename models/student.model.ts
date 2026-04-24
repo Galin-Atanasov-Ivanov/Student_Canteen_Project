@@ -6,19 +6,19 @@ export class StudentModel {
 
     async findAll(): Promise<Student[]> {
         const [rows] = await this.db.query<RowDataPacket[]>
-        ("SELECT * FROM students");
+        ("SELECT * FROM student");
         return rows as Student[];
     }
 
     async findById(id: number): Promise<Student | undefined> {
         const [rows] = await this.db.query<RowDataPacket[]>
-        ("SELECT * FROM students WHERE id =?", [id]);
+        ("SELECT * FROM student WHERE id =?", [id]);
         return rows[0] as Student;
     }
 
     async create(Student: CreateStudentDTO): Promise<Student> {
         const [result] = await this.db.query<ResultSetHeader>(
-            "INSERT INTO students(id,name,facultyNumber) VALUES (NULL,?,?)",
+            "INSERT INTO student(id,name,faculty_number) VALUES (NULL,?,?)",
             [Student.name,Student.facultyNumber]
         );
 
@@ -37,7 +37,7 @@ export class StudentModel {
 
         const updated={...existing,...data};
         await this.db.query<ResultSetHeader>(
-            "UPDATE students SET name =?, facultyNumber =? WHERE id = ?",
+            "UPDATE student SET name =?, faculty_number =? WHERE id = ?",
             [updated.name, updated.facultyNumber, id]
         )
 
@@ -46,7 +46,7 @@ export class StudentModel {
 
     async delete(id: number): Promise<boolean> {
         const [result] = await this.db.query<ResultSetHeader>(
-            "DELETE FROM students WHERE id = ?", [id]
+            "DELETE FROM student WHERE id = ?", [id]
         )
         return result.affectedRows > 0;
     }
