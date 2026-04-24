@@ -3,3 +3,8 @@ export interface Meal {
     name: string;
     price: number;
 }
+
+export interface CreateMealDTO {
+    name: string;
+    price: number;
+}

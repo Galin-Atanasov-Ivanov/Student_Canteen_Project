@@ -3,3 +3,8 @@ export interface Order {
     studentId: number;
     mealId: number;
 }
+
+export interface CreateOrderDTO {
+    studentId: number;
+    mealId: number;
+}
