@@ -1,5 +1,6 @@
 import express from "express";
 import studentRoutes from "./routes/student.routes";
+import mealRoutes from "./routes/meal.routes";
 import 'dotenv/config'
 import cors from "cors";
 
@@ -9,6 +10,7 @@ const PORT = Number(process.env.PORT) || 3000;
 app.use(express.json());
 app.use(cors());
 
+app.use(mealRoutes);
 app.use(studentRoutes);
 
 app.listen(PORT, () => {
