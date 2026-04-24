@@ -30,7 +30,7 @@ export class MealModel {
     }
 
     async update(id: number, data: Partial<Meal>): Promise<Meal | undefined> {
-        const existing = this.findById(id);
+        const existing = await this.findById(id);
         if (!existing) {
             return undefined;
         }

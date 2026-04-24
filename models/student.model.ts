@@ -30,7 +30,7 @@ export class StudentModel {
     }
 
     async update(id: number, data: Partial<Student>): Promise<Student | undefined> {
-        const existing = this.findById(id);
+        const existing = await this.findById(id);
         if (!existing) {
             return undefined;
         }
