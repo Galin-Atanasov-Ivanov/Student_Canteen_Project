@@ -20,7 +20,7 @@ export const UpdateStudentForm: FC<UpdateStudentFormProps> = ({ student, refresh
     });
 
     const updateStudent = async (data: CreateStudentDTO) => {
-        await fetch(`http://localhost:3000/students/${student.id}`, {
+        await fetch(`http://localhost:3002/students/${student.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

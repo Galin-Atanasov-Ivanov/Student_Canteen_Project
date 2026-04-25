@@ -14,7 +14,7 @@ export const CreateStudentForm: FC<CreateStudentFormProps> = ({ refresh }) => {
     } = useForm<CreateStudentDTO>();
 
     const createStudent = async (data: CreateStudentDTO) => {
-        await fetch("http://localhost:3000/students", {
+        await fetch("http://localhost:3002/students", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -7,6 +7,10 @@ import type {Student} from "../../types/Student.ts";
 import { StudentList } from "./components/StudentList.tsx";
 import {CreateStudentForm} from "./components/CreateStudentForm.tsx";
 import {UpdateStudentForm} from "./components/UpdateStudentForm.tsx";
+import type {Order} from "../../types/Order.ts";
+import {OrderList} from "./components/OrderList.tsx";
+import {CreateOrderForm} from "./components/CreateOrderForm.tsx";
+import {UpdateOrderForm} from "./components/UpdateOrderForm.tsx";
 
 function App() {
     const [meals, setMeals] = useState<Meal[]>([]);
@@ -15,16 +19,25 @@ function App() {
     const [students, setStudents] = useState<Student[]>([]);
     const [isCreatingStudent, setIsCreatingStudent] = useState(false);
     const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+    const [orders, setOrders] = useState<Order[]>([]);
+    const [isCreatingOrder, setIsCreatingOrder] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
     const fetchMeals = async () => {
-        const res = await fetch("http://localhost:3000/meals");
+        const res = await fetch("http://localhost:3002/meals");
         const data = await res.json();
-        setMeals(data);
+        setMeals(data.data);
     };
     const fetchStudents = async () => {
-        const res = await fetch("http://localhost:3000/students");
+        const res = await fetch("http://localhost:3002/students");
         const data = await res.json();
-        setStudents(data);
+        console.log(data);
+        setStudents(data.data);
+    };
+    const fetchOrders = async () => {
+        const res = await fetch("http://localhost:3002/orders");
+        const data = await res.json();
+        setOrders(data.data);
     };
     useEffect(() => {
         fetchMeals();
@@ -34,21 +47,28 @@ function App() {
         fetchMeals();
         setIsCreating(false);
         setSelectedMeal(null);
+        fetchStudents();
+        fetchOrders();
     };
 
     const deleteMeal = async (id: number) => {
-        await fetch(`http://localhost:3000/meals/${id}`, {
+        await fetch(`http://localhost:3002/meals/${id}`, {
             method: "DELETE"
         });
         refresh();
     };
     const deleteStudent = async (id: number) => {
-        await fetch(`http://localhost:3000/students/${id}`, {
+        await fetch(`http://localhost:3002/students/${id}`, {
             method: "DELETE"
         });
         fetchStudents();
     };
-
+    const deleteOrder = async (id: number) => {
+        await fetch(`http://localhost:3002/orders/${id}`, {
+            method: "DELETE"
+        });
+        fetchOrders();
+    };
     const toggleIsCreating = () => {
         setIsCreating(!isCreating);
         setSelectedMeal(null);
@@ -82,10 +102,22 @@ function App() {
                 deleteStudent={deleteStudent}
             />
 
-            {isCreatingStudent && <CreateStudentForm refresh={fetchStudents} />}
+            {isCreatingStudent && <CreateStudentForm refresh={refresh} />}
 
             {selectedStudent && (
-                <UpdateStudentForm student={selectedStudent} refresh={fetchStudents} />
+                <UpdateStudentForm student={selectedStudent} refresh={refresh} />
+            )}
+            <OrderList
+                orders={orders}
+                toggleIsCreating={() => setIsCreatingOrder(!isCreatingOrder)}
+                updateOrder={setSelectedOrder}
+                deleteOrder={deleteOrder}
+            />
+
+            {isCreatingOrder && <CreateOrderForm refresh={refresh} />}
+
+            {selectedOrder && (
+                <UpdateOrderForm order={selectedOrder} refresh={refresh} />
             )}
         </div>
     );

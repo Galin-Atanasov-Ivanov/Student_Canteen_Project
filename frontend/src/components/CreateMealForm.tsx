@@ -14,7 +14,7 @@ export const CreateMealForm: FC<CreateMealFormProps> = ({ refresh }) => {
     } = useForm<CreateMealDTO>();
 
     const createMeal = async (data: CreateMealDTO) => {
-        await fetch("http://localhost:3000/meals", {
+        await fetch("http://localhost:3002/meals", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

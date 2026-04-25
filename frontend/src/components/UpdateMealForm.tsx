@@ -20,7 +20,7 @@ export const UpdateMealForm: FC<UpdateMealFormProps> = ({ meal, refresh }) => {
     });
 
     const updateMeal = async (data: CreateMealDTO) => {
-        await fetch(`http://localhost:3000/meals/${meal.id}`, {
+        await fetch(`http://localhost:3002/meals/${meal.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

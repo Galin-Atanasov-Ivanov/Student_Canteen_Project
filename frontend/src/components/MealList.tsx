@@ -21,7 +21,7 @@ export const MealList: FC<MealListProps> = ({
             <ul>
                 {meals.map((meal) => (
                     <li key={meal.id}>
-                        {meal.name} - {meal.price} лв.
+                        {meal.name} - {meal.price} €.
 
                         <button onClick={() => updateMeal(meal)}>
                             Edit
