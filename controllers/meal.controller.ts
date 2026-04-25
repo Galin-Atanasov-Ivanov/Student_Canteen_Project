@@ -30,7 +30,7 @@ export class MealController {
     };
 
     update = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id=Number(req.params.id);
+        const id= Number(req.params.id);
         const meal = await this.mealService.updateMeal(id, req.body);
         if (!meal) {
             res.status(404).json({ message: 'Meal not found' });
@@ -40,7 +40,7 @@ export class MealController {
     };
 
     delete = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id=Number(req.params.id);
+        const id= Number(req.params.id);
         const deleted = await this.mealService.deleteMeal(id);
         if (!deleted) {
             res.status(404).json({ message: 'Meal not found' });

@@ -14,7 +14,7 @@ export class StudentController {
     };
 
     getById = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id=Number(req.params.id);
+        const id= Number(req.params.id);
         const Student = await this.studentService.getStudentById(id);
         if (!Student) {
             res.status(404).json({ message: 'Student not found' });
@@ -24,13 +24,13 @@ export class StudentController {
     };
 
     create = async (req: Request, res: Response): Promise<void> => {
-        const { name, facultyNumber } = req.body;
-        const Student = await this.studentService.createStudent({ name, faculty_number: facultyNumber });
+        const { name, faculty_number } = req.body;
+        const Student = await this.studentService.createStudent({ name, faculty_number });
         res.status(201).json({ message: 'Student created', data: Student });
     };
 
     update = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id=Number(req.params.id);
+        const id= Number(req.params.id);
         const Student = await this.studentService.updateStudent(id, req.body);
         if (!Student) {
             res.status(404).json({ message: 'Student not found' });
@@ -40,7 +40,7 @@ export class StudentController {
     };
 
     delete = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id=Number(req.params.id);
+        const id= Number(req.params.id);
         const deleted = await this.studentService.deleteStudent(id);
         if (!deleted) {
             res.status(404).json({ message: 'Student not found' });

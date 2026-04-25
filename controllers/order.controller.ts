@@ -14,7 +14,7 @@ export class OrderController {
     };
 
     getById = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id=Number(req.params.id);
+        const id= Number(req.params.id);
         const order = await this.orderService.getOrderById(id);
         if (!order) {
             res.status(404).json({ message: 'Order not found' });
@@ -24,13 +24,13 @@ export class OrderController {
     };
 
     create = async (req: Request, res: Response): Promise<void> => {
-        const { studentId, mealId, orderDate } = req.body;
-        const order = await this.orderService.createOrder({ student_id: studentId,meal_id: mealId,order_date: orderDate });
+        const { student_id, meal_id, order_date } = req.body;
+        const order = await this.orderService.createOrder({ student_id, meal_id, order_date });
         res.status(201).json({ message: 'Order created', data: order });
     };
 
     update = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id=Number(req.params.id);
+        const id= Number(req.params.id);
         const order = await this.orderService.updateOrder(id, req.body);
         if (!order) {
             res.status(404).json({ message: 'Order not found' });
@@ -40,7 +40,7 @@ export class OrderController {
     };
 
     delete = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id=Number(req.params.id);
+        const id= Number(req.params.id);
         const deleted = await this.orderService.deleteOrder(id);
         if (!deleted) {
             res.status(404).json({ message: 'Order not found' });
