@@ -40,7 +40,7 @@ function App() {
         setOrders(data.data);
     };
     useEffect(() => {
-        fetchMeals();
+        refresh();
     }, []);
 
     const refresh = () => {
@@ -48,7 +48,11 @@ function App() {
         setIsCreating(false);
         setSelectedMeal(null);
         fetchStudents();
+        setIsCreatingStudent(false);
+        setSelectedStudent(null);
         fetchOrders();
+        setIsCreatingOrder(false);
+        setSelectedOrder(null);
     };
 
     const deleteMeal = async (id: number) => {
@@ -61,13 +65,13 @@ function App() {
         await fetch(`http://localhost:3002/students/${id}`, {
             method: "DELETE"
         });
-        fetchStudents();
+        refresh();
     };
     const deleteOrder = async (id: number) => {
         await fetch(`http://localhost:3002/orders/${id}`, {
             method: "DELETE"
         });
-        fetchOrders();
+        refresh();
     };
     const toggleIsCreating = () => {
         setIsCreating(!isCreating);
@@ -95,17 +99,21 @@ function App() {
                 updateMeal={updateMeal}
                 deleteMeal={deleteMeal}
             />
+            {isCreatingStudent && <CreateStudentForm refresh={refresh} />}
+
+            {selectedStudent && (
+                <UpdateStudentForm student={selectedStudent} refresh={refresh} />
+            )}
             <StudentList
                 students={students}
                 toggleIsCreating={() => setIsCreatingStudent(!isCreatingStudent)}
                 updateStudent={setSelectedStudent}
                 deleteStudent={deleteStudent}
             />
+            {isCreatingOrder && <CreateOrderForm refresh={refresh} />}
 
-            {isCreatingStudent && <CreateStudentForm refresh={refresh} />}
-
-            {selectedStudent && (
-                <UpdateStudentForm student={selectedStudent} refresh={refresh} />
+            {selectedOrder && (
+                <UpdateOrderForm order={selectedOrder} refresh={refresh} />
             )}
             <OrderList
                 orders={orders}
@@ -113,12 +121,6 @@ function App() {
                 updateOrder={setSelectedOrder}
                 deleteOrder={deleteOrder}
             />
-
-            {isCreatingOrder && <CreateOrderForm refresh={refresh} />}
-
-            {selectedOrder && (
-                <UpdateOrderForm order={selectedOrder} refresh={refresh} />
-            )}
         </div>
     );
 }
