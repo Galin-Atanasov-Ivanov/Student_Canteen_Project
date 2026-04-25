@@ -35,7 +35,7 @@ export const CreateStudentForm: FC<CreateStudentFormProps> = ({ refresh }) => {
 
             <input
                 placeholder="Faculty Number"
-                {...register("facultyNumber", { required: "FN is required" })}
+                {...register("faculty_number", { required: "FN is required" })}
             />
             {errors.faculty_number && <span>{errors.faculty_number.message}</span>}
 

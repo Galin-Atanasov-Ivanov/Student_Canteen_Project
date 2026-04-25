@@ -36,7 +36,7 @@ export const UpdateStudentForm: FC<UpdateStudentFormProps> = ({ student, refresh
             <input {...register("name", { required: "Name is required" })} />
             {errors.name && <span>{errors.name.message}</span>}
 
-            <input {...register("facultyNumber", { required: "FN is required" })} />
+            <input {...register("faculty_number", { required: "FN is required" })} />
             {errors.faculty_number && <span>{errors.faculty_number.message}</span>}
 
             <button type="submit">Update Student</button>
