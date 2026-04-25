@@ -16,16 +16,16 @@ export class MealModel {
         return rows[0] as Meal;
     }
 
-    async create(Meal: CreateMealDTO): Promise<Meal> {
+    async create(meal: CreateMealDTO): Promise<Meal> {
         const [result] = await this.db.query<ResultSetHeader>(
             "INSERT INTO meal(id,name,price) VALUES (NULL,?,?)",
-            [Meal.name,Meal.price]
+            [meal.name,meal.price]
         );
 
         return {
             id: result.insertId,
-            name: Meal.name,
-            price: Meal.price
+            name: meal.name,
+            price: meal.price
         }
     }
 

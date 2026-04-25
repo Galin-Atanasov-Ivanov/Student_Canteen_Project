@@ -37,7 +37,7 @@ export const CreateStudentForm: FC<CreateStudentFormProps> = ({ refresh }) => {
                 placeholder="Faculty Number"
                 {...register("facultyNumber", { required: "FN is required" })}
             />
-            {errors.facultyNumber && <span>{errors.facultyNumber.message}</span>}
+            {errors.faculty_number && <span>{errors.faculty_number.message}</span>}
 
             <button type="submit">Create Student</button>
         </form>

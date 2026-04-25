@@ -1,10 +1,12 @@
 export interface Order {
     id: number;
-    studentId: number;
-    mealId: number;
+    student_id: number;
+    meal_id: number;
+    order_date: Date;
 }
 
 export interface CreateOrderDTO {
-    studentId: number;
-    mealId: number;
+    student_id: number;
+    meal_id: number;
+    order_date: Date;
 }

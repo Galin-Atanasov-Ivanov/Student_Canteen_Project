@@ -21,7 +21,7 @@ export const StudentList: FC<StudentListProps> = ({
             <ul>
                 {students.map((student) => (
                     <li key={student.id}>
-                        {student.name} - {student.facultyNumber}
+                        {student.name} - {student.faculty_number}
 
                         <button onClick={() => updateStudent(student)}>
                             Edit

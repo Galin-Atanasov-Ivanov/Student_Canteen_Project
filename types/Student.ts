@@ -1,10 +1,10 @@
 export interface Student {
     id: number;
     name: string;
-    facultyNumber: string;
+    faculty_number: string;
 }
 
 export interface CreateStudentDTO {
     name: string;
-    facultyNumber: string;
+    faculty_number: string;
 }

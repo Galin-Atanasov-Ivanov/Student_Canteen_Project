@@ -25,7 +25,7 @@ export class StudentController {
 
     create = async (req: Request, res: Response): Promise<void> => {
         const { name, facultyNumber } = req.body;
-        const Student = await this.studentService.createStudent({ name, facultyNumber });
+        const Student = await this.studentService.createStudent({ name, faculty_number: facultyNumber });
         res.status(201).json({ message: 'Student created', data: Student });
     };
 

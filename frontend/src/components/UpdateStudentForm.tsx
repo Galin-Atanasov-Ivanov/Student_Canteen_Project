@@ -15,7 +15,7 @@ export const UpdateStudentForm: FC<UpdateStudentFormProps> = ({ student, refresh
     } = useForm<CreateStudentDTO>({
         defaultValues: {
             name: student.name,
-            facultyNumber: student.facultyNumber
+            faculty_number: student.faculty_number
         }
     });
 
@@ -37,7 +37,7 @@ export const UpdateStudentForm: FC<UpdateStudentFormProps> = ({ student, refresh
             {errors.name && <span>{errors.name.message}</span>}
 
             <input {...register("facultyNumber", { required: "FN is required" })} />
-            {errors.facultyNumber && <span>{errors.facultyNumber.message}</span>}
+            {errors.faculty_number && <span>{errors.faculty_number.message}</span>}
 
             <button type="submit">Update Student</button>
             <button type="button" onClick={refresh}>Cancel</button>

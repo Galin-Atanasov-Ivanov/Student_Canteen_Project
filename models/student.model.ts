@@ -16,16 +16,16 @@ export class StudentModel {
         return rows[0] as Student;
     }
 
-    async create(Student: CreateStudentDTO): Promise<Student> {
+    async create(student: CreateStudentDTO): Promise<Student> {
         const [result] = await this.db.query<ResultSetHeader>(
             "INSERT INTO student(id,name,faculty_number) VALUES (NULL,?,?)",
-            [Student.name,Student.facultyNumber]
+            [student.name,student.faculty_number]
         );
 
         return {
             id: result.insertId,
-            name: Student.name,
-            facultyNumber: Student.facultyNumber
+            name: student.name,
+            faculty_number: student.faculty_number
         }
     }
 
@@ -38,7 +38,7 @@ export class StudentModel {
         const updated={...existing,...data};
         await this.db.query<ResultSetHeader>(
             "UPDATE student SET name =?, faculty_number =? WHERE id = ?",
-            [updated.name, updated.facultyNumber, id]
+            [updated.name, updated.faculty_number, id]
         )
 
         return updated;
