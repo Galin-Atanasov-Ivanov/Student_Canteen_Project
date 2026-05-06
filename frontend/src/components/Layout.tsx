@@ -1,13 +1,13 @@
-import {Navigation} from "./Navigation.tsx";
-import {Outlet} from "react-router";
+import { Navigation } from "./Navigation.tsx";
+import { Outlet } from "react-router";
 
 export const Layout = () => {
     return (
-        <div>
+        <div className="layout">
             <Navigation />
-            <main>
+            <main className="main">
                 <Outlet />
             </main>
         </div>
-    )
-}
+    );
+};

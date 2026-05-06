@@ -1,16 +1,33 @@
-import {Link} from "react-router";
+import { NavLink } from "react-router";
 
 export const Navigation = () => {
+    const linkClass = ({ isActive }: { isActive: boolean }) =>
+        isActive ? "nav__link active" : "nav__link";
+
     return (
-        <nav>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/students">Students</Link></li>
-                <li><Link to="/meals">Meals</Link></li>
-                <li><Link to="/orders">Orders</Link></li>
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
-            </ul>
+        <nav className="nav">
+            <div className="nav__brand">
+                <span>System</span>
+                <h1>Student Canteen</h1>
+            </div>
+
+            <div className="nav__links">
+                <p className="nav__section-label">General</p>
+                <NavLink to="/" end className={linkClass}>Home</NavLink>
+
+                <p className="nav__section-label">Manage</p>
+                <NavLink to="/students" className={linkClass}>Students</NavLink>
+                <NavLink to="/meals" className={linkClass}>Meals</NavLink>
+                <NavLink to="/orders" className={linkClass}>Orders</NavLink>
+
+                <p className="nav__section-label">Info</p>
+                <NavLink to="/about" className={linkClass}>About</NavLink>
+                <NavLink to="/contact" className={linkClass}>Contact</NavLink>
+            </div>
+
+            <div className="nav__footer">
+                v1.0.0
+            </div>
         </nav>
-    )
-}
+    );
+};

@@ -8,28 +8,43 @@ interface OrderListProps {
     deleteOrder: (id: number) => void;
 }
 
-export const OrderList: FC<OrderListProps> = ({
-                                                  orders,
-                                                  toggleIsCreating,
-                                                  updateOrder,
-                                                  deleteOrder
-                                              }) => {
+export const OrderList: FC<OrderListProps> = ({ orders, toggleIsCreating, updateOrder, deleteOrder }) => {
     return (
         <div>
-            <button onClick={toggleIsCreating}>Add Order</button>
+            <div className="page-header">
+                <div>
+                    <p className="page-header__eyebrow">Manage</p>
+                    <h2 className="page-header__title">Orders</h2>
+                </div>
+                <div className="page-header__count">{orders.length} items</div>
+            </div>
 
-            <ul>
+            <button className="btn btn--primary" onClick={toggleIsCreating}>
+                + Add Order
+            </button>
+
+            <ul className="data-list" style={{ marginTop: "var(--space-lg)" }}>
+                {orders.length === 0 && (
+                    <p className="data-list__empty">No orders yet. Add one to get started.</p>
+                )}
                 {orders.map((order) => (
-                    <li key={order.id}>
-                        Student: {order.student_id} | Meal: {order.meal_id} | Date: {new Date(order.order_date).toLocaleDateString()}
-
-                        <button onClick={() => updateOrder(order)}>
-                            Edit
-                        </button>
-
-                        <button onClick={() => deleteOrder(order.id)}>
-                            Delete
-                        </button>
+                    <li className="data-list__item" key={order.id}>
+                        <div className="data-list__info">
+                            <span className="data-list__name">Order #{order.id}</span>
+                            <span className="data-list__meta">Student {order.student_id}</span>
+                            <span className="data-list__meta">Meal {order.meal_id}</span>
+                            <span className="data-list__badge">
+                                {new Date(order.order_date).toLocaleDateString()}
+                            </span>
+                        </div>
+                        <div className="data-list__actions">
+                            <button className="btn btn--ghost btn--sm" onClick={() => updateOrder(order)}>
+                                Edit
+                            </button>
+                            <button className="btn btn--danger btn--sm" onClick={() => deleteOrder(order.id)}>
+                                Delete
+                            </button>
+                        </div>
                     </li>
                 ))}
             </ul>

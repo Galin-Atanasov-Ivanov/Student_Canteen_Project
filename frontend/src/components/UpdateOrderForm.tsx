@@ -8,11 +8,7 @@ interface UpdateOrderFormProps {
 }
 
 export const UpdateOrderForm: FC<UpdateOrderFormProps> = ({ order, refresh }) => {
-    const {
-        handleSubmit,
-        register,
-        formState: { errors }
-    } = useForm<CreateOrderDTO>({
+    const { handleSubmit, register, formState: { errors } } = useForm<CreateOrderDTO>({
         defaultValues: {
             student_id: order.student_id,
             meal_id: order.meal_id,
@@ -23,24 +19,43 @@ export const UpdateOrderForm: FC<UpdateOrderFormProps> = ({ order, refresh }) =>
     const updateOrder = async (data: CreateOrderDTO) => {
         await fetch(`http://localhost:3002/orders/${order.id}`, {
             method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
-
         refresh();
     };
 
     return (
-        <form onSubmit={handleSubmit(updateOrder)}>
-            <input type="number" {...register("student_id")} />
-            {errors.student_id && <span>{errors.student_id.message}</span>}
-            <input type="number" {...register("meal_id")} />
-            <input type="date" {...register("order_date")} />
-
-            <button type="submit">Update Order</button>
-            <button type="button" onClick={refresh}>Cancel</button>
-        </form>
+        <div className="form-card">
+            <p className="form-card__title">Edit Order</p>
+            <form onSubmit={handleSubmit(updateOrder)}>
+                <div className="form-card__fields">
+                    <div className="form-card__row">
+                        <div className="form-card__field">
+                            <label className="form-card__label">Student ID</label>
+                            <input className="input" type="number"
+                                   {...register("student_id")} />
+                            {errors.student_id && <span className="input-error">{errors.student_id.message}</span>}
+                        </div>
+                        <div className="form-card__field">
+                            <label className="form-card__label">Meal ID</label>
+                            <input className="input" type="number"
+                                   {...register("meal_id")} />
+                            {errors.meal_id && <span className="input-error">{errors.meal_id.message}</span>}
+                        </div>
+                        <div className="form-card__field">
+                            <label className="form-card__label">Order Date</label>
+                            <input className="input" type="date"
+                                   {...register("order_date")} />
+                            {errors.order_date && <span className="input-error">{errors.order_date.message}</span>}
+                        </div>
+                    </div>
+                </div>
+                <div className="form-card__actions">
+                    <button className="btn btn--primary" type="submit">Update Order</button>
+                    <button className="btn btn--ghost" type="button" onClick={refresh}>Cancel</button>
+                </div>
+            </form>
+        </div>
     );
 };
