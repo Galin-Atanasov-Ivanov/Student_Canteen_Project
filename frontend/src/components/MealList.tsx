@@ -16,7 +16,7 @@ export const MealList: FC<MealListProps> = ({ meals, toggleIsCreating, updateMea
                     <p className="page-header__eyebrow">Manage</p>
                     <h2 className="page-header__title">Meals</h2>
                 </div>
-                <div className="page-header__count">{meals.length} items</div>
+                <div className="page-header__count">{meals.length} meals</div>
             </div>
 
             <button className="btn btn--primary" onClick={toggleIsCreating}>

@@ -16,7 +16,7 @@ export const StudentList: FC<StudentListProps> = ({ students, toggleIsCreating, 
                     <p className="page-header__eyebrow">Manage</p>
                     <h2 className="page-header__title">Students</h2>
                 </div>
-                <div className="page-header__count">{students.length} items</div>
+                <div className="page-header__count">{students.length} students</div>
             </div>
 
             <button className="btn btn--primary" onClick={toggleIsCreating}>

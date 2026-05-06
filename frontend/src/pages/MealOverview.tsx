@@ -30,7 +30,6 @@ export const MealOverview = () => {
 
     return (
         <>
-            <h2>Meals</h2>
 
             {creatingMeal && <CreateMealForm refresh={refreshMeals} />}
 

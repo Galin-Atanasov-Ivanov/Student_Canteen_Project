@@ -30,7 +30,6 @@ export const StudentOverview = () => {
 
     return (
         <>
-            <h2>Students</h2>
 
             {creatingStudent && <CreateStudentForm refresh={refreshStudents} />}
 
