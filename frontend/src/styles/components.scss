@@ -1,0 +1,331 @@
+// ─── Page Header ─────────────────────────────────────────────────────────────
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--clr-border);
+
+  &__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clr-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    color: var(--clr-heading);
+  }
+
+  &__count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--clr-text-muted);
+    background: var(--clr-surface-2);
+    border: 1px solid var(--clr-border);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+  }
+}
+
+// ─── Data List (shared across all overviews) ──────────────────────────────────
+.data-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius);
+    transition: background 0.15s var(--ease), border-color 0.15s var(--ease);
+    animation: slideIn 0.25s var(--ease) both;
+
+    &:hover {
+      background: var(--clr-surface-2);
+      border-color: var(--clr-border-2);
+    }
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    flex: 1;
+  }
+
+  &__name {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--clr-heading);
+  }
+
+  &__meta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--clr-text-muted);
+  }
+
+  &__badge {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--clr-accent);
+    background: var(--clr-accent-dim);
+    border: 1px solid var(--clr-accent-glow);
+    padding: 2px var(--space-sm);
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-left: var(--space-lg);
+    opacity: 0;
+    transition: opacity 0.15s var(--ease);
+  }
+
+  &__item:hover &__actions {
+    opacity: 1;
+  }
+
+  &__empty {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-xl);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--clr-text-muted);
+    border: 1px dashed var(--clr-border);
+    border-radius: var(--radius);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─── Buttons ──────────────────────────────────────────────────────────────────
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s var(--ease);
+  white-space: nowrap;
+
+  &--primary {
+    background: var(--clr-accent);
+    color: #0d0f14;
+    border-color: var(--clr-accent);
+
+    &:hover {
+      background: #fbb740;
+      border-color: #fbb740;
+      box-shadow: 0 0 16px var(--clr-accent-glow);
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: var(--clr-text-muted);
+    border-color: var(--clr-border);
+
+    &:hover {
+      color: var(--clr-text);
+      border-color: var(--clr-border-2);
+      background: var(--clr-surface-2);
+    }
+  }
+
+  &--danger {
+    background: transparent;
+    color: var(--clr-danger);
+    border-color: transparent;
+
+    &:hover {
+      background: var(--clr-danger-dim);
+      border-color: var(--clr-danger);
+    }
+  }
+
+  &--sm {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+}
+
+// ─── Forms ────────────────────────────────────────────────────────────────────
+.form-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  animation: slideIn 0.2s var(--ease) both;
+
+  &__title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--clr-accent);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  &__row {
+    display: flex;
+    gap: var(--space-md);
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    flex: 1;
+  }
+
+  &__label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--clr-text-muted);
+  }
+
+  &__actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--clr-border);
+  }
+}
+
+.input {
+  background: var(--clr-bg);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  color: var(--clr-heading);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  padding: 9px var(--space-md);
+  width: 100%;
+  transition: border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+  outline: none;
+
+  &::placeholder {
+    color: var(--clr-text-muted);
+    font-weight: 300;
+  }
+
+  &:focus {
+    border-color: var(--clr-accent);
+    box-shadow: 0 0 0 3px var(--clr-accent-dim);
+  }
+
+  &[type="date"] {
+    color-scheme: dark;
+  }
+}
+
+.input-error {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--clr-danger);
+  margin-top: 2px;
+}
+
+// ─── Static Pages (Home, About, Contact, NotFound) ────────────────────────────
+.static-page {
+  max-width: 600px;
+
+  &__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--clr-accent);
+    margin-bottom: var(--space-md);
+  }
+
+  &__title {
+    font-size: 2.2rem;
+    color: var(--clr-heading);
+    margin-bottom: var(--space-lg);
+    line-height: 1.15;
+  }
+
+  &__body {
+    color: var(--clr-text);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  &__divider {
+    width: 40px;
+    height: 2px;
+    background: var(--clr-accent);
+    margin: var(--space-xl) 0;
+  }
+}
+
+// ─── 404 ─────────────────────────────────────────────────────────────────────
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: var(--space-2xl);
+
+  &__code {
+    font-family: var(--font-mono);
+    font-size: 5rem;
+    font-weight: 500;
+    color: var(--clr-border-2);
+    line-height: 1;
+    margin-bottom: var(--space-lg);
+  }
+
+  &__message {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--clr-text-muted);
+    margin-bottom: var(--space-xl);
+  }
+}

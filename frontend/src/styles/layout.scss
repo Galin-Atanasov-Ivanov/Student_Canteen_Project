@@ -1,0 +1,127 @@
+// ─── App Shell ───────────────────────────────────────────────────────────────
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+// ─── Sidebar Navigation ──────────────────────────────────────────────────────
+.nav {
+  width: var(--nav-width);
+  min-height: 100vh;
+  background: var(--clr-surface);
+  border-right: 1px solid var(--clr-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  &__brand {
+    padding: var(--space-xl) var(--space-lg) var(--space-lg);
+    border-bottom: 1px solid var(--clr-border);
+
+    span {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--clr-accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-xs);
+    }
+
+    h1 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--clr-heading);
+      line-height: 1.2;
+    }
+  }
+
+  &__links {
+    padding: var(--space-lg) 0;
+    flex: 1;
+  }
+
+  &__section-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--clr-text-muted);
+    padding: var(--space-sm) var(--space-lg);
+    margin-top: var(--space-sm);
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: 10px var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--clr-text-muted);
+    transition: color 0.2s var(--ease), background 0.2s var(--ease);
+    border-left: 2px solid transparent;
+    position: relative;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--clr-border-2);
+      transition: background 0.2s var(--ease), transform 0.2s var(--ease);
+      flex-shrink: 0;
+    }
+
+    &:hover {
+      color: var(--clr-text);
+      background: var(--clr-surface-2);
+
+      &::before {
+        background: var(--clr-accent);
+        transform: scale(1.4);
+      }
+    }
+
+    &.active {
+      color: var(--clr-accent);
+      border-left-color: var(--clr-accent);
+      background: var(--clr-accent-dim);
+
+      &::before {
+        background: var(--clr-accent);
+      }
+    }
+  }
+
+  &__footer {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--clr-border);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--clr-text-muted);
+    letter-spacing: 0.05em;
+  }
+}
+
+// ─── Main Content ─────────────────────────────────────────────────────────────
+.main {
+  margin-left: var(--nav-width);
+  flex: 1;
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: calc(var(--content-max) + var(--nav-width));
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    padding: var(--space-xl) var(--space-lg);
+  }
+}
